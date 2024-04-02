@@ -1,0 +1,33 @@
+-- TABLES
+CREATE TABLE Question (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    text TEXT NOT NULL UNIQUE, -- TODO: Separate between text and image questions
+    category_id INTEGER,
+    FOREIGN KEY(category_id) REFERENCES Category(id)
+);
+
+CREATE TABLE Answer (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type TEXT NOT NULL UNIQUE  -- TODO: Separate between text and image answers
+);
+
+-- Question-Answer Relationship
+CREATE TABLE QAR (
+    question_id INTEGER NOT NULL,
+    answer_id INTEGER NOT NULL,
+    FOREIGN KEY (question_id) REFERENCES Question(id),
+    FOREIGN KEY (answer_id) REFERENCES Answer(id)
+);
+
+CREATE TABLE Category (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE
+);
+
+-- QUERIES
+selectQuestionNames:
+SELECT text FROM Question;
+
+createQuestion:
+INSERT INTO Question(text, category_id)
+VALUES (?, ?);

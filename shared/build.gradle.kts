@@ -32,7 +32,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.khlebovitch.segeln"
+    namespace = "com.khlebovitch.bfa.binnen"
     compileSdk = 34
     defaultConfig {
         minSdk = 29
@@ -46,7 +46,7 @@ android {
 sqldelight {
     databases {
         create("AppDatabase") {
-            packageName.set("com.khlebovitch.segeln.shared.cache")
+            packageName.set("com.khlebovitch.bfa.binnen.shared.cache")
             generateAsync.set(false)
         }
     }

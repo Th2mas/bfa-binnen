@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Segeln"
-include(":Segeln_A-Schein")
+rootProject.name = "bfa-binnen"
+include(":bfa-binnen-android")
 include(":shared")
