@@ -1,0 +1,34 @@
+-- TABLES
+CREATE TABLE Question (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    text TEXT NOT NULL,
+    tag_id INTEGER,
+    FOREIGN KEY(tag_id) REFERENCES Tag(id)
+);
+
+CREATE TABLE Answer (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    text TEXT NOT NULL
+);
+
+-- Question-Answer Relationship
+CREATE TABLE QAR (
+    question_id INTEGER NOT NULL,
+    answer_id INTEGER NOT NULL,
+    FOREIGN KEY (question_id) REFERENCES Question(id),
+    FOREIGN KEY (answer_id) REFERENCES Answer(id)
+);
+
+CREATE TABLE Tag (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
+);
+
+-- QUERIES
+-- TODO: Mach das mit TDD!
+selectQuestionNames:
+SELECT text FROM Question;
+
+createQuestion:
+INSERT INTO Question(text, tag_id)
+VALUES (?, ?);
