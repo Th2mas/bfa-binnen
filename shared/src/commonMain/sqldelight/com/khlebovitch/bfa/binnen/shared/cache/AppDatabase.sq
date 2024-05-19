@@ -1,33 +1,62 @@
--- TABLES
-CREATE TABLE Question (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    text TEXT NOT NULL UNIQUE, -- TODO: Separate between text and image questions
-    category_id INTEGER,
-    FOREIGN KEY(category_id) REFERENCES Category(id)
-);
+selectQAs:
+SELECT
+    q.chapter_id AS chapterId,
+    q.text AS questionText,
+    ta.text AS answerText,
+    ia.image_path AS answerImagePath
+FROM
+    Question q
+LEFT JOIN Answer a ON q.id = a.question_id
+LEFT JOIN TextAnswer ta ON a.id = ta.answer_id
+LEFT JOIN ImageAnswer ia ON a.id = ia.answer_id;
 
-CREATE TABLE Answer (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    type TEXT NOT NULL UNIQUE  -- TODO: Separate between text and image answers
-);
+selectQAsByChapterId:
+SELECT q.chapter_id AS chapterId, q.text AS questionText, t.text AS answerText, i.image_path AS answerImagePath
+FROM Question q
+JOIN Answer a ON q.id = a.question_id
+JOIN TextAnswer t ON a.id = t.answer_id
+JOIN ImageAnswer i ON a.id = i.answer_id
+WHERE q.chapter_id = ?;
 
--- Question-Answer Relationship
-CREATE TABLE QAR (
-    question_id INTEGER NOT NULL,
-    answer_id INTEGER NOT NULL,
-    FOREIGN KEY (question_id) REFERENCES Question(id),
-    FOREIGN KEY (answer_id) REFERENCES Answer(id)
-);
+selectChapters:
+SELECT * FROM Chapter;
 
-CREATE TABLE Category (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL UNIQUE
-);
+createChapter:
+INSERT INTO Chapter(name)
+VALUES (?);
 
--- QUERIES
-selectQuestionNames:
-SELECT text FROM Question;
+createAnswer:
+INSERT INTO Answer(question_id)
+VALUES (?);
+
+findAnswerByQuestionId:
+SELECT * FROM Answer
+WHERE question_id = ?;
+
+selectAnswers:
+SELECT * FROM Answer;
+
+createTextAnswer:
+INSERT INTO TextAnswer(answer_id, text)
+VALUES (?, ?);
+
+selectTextAnswers:
+SELECT * FROM TextAnswer;
+
+selectImageAnswers:
+SELECT * FROM ImageAnswer;
+
+createImageAnswer:
+INSERT INTO ImageAnswer(answer_id, image_path)
+VALUES (?, ?);
+
+selectQuestions:
+SELECT * FROM Question;
 
 createQuestion:
-INSERT INTO Question(text, category_id)
-VALUES (?, ?);
+INSERT INTO Question(chapter_id, text, image_path)
+VALUES (?, ?, ?);
+
+findQuestionByText:
+SELECT * FROM Question
+WHERE text = ?;

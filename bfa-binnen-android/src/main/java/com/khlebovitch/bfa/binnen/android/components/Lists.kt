@@ -14,11 +14,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
 
 data class ButtonListItem(val label: String, val icon: ImageVector? = null, val onClick: () -> Unit = {})
 @Composable
-@Preview
 fun TextButtonList(buttonListItems: List<ButtonListItem> = listOf()) {
     var selectedButtonIndex by remember { mutableIntStateOf(0) }
 

@@ -1,0 +1,7 @@
+CREATE TABLE Question (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    chapter_id INTEGER NOT NULL,
+    text TEXT NOT NULL,
+    image_path TEXT DEFAULT NULL,    -- Optional images in questions
+    FOREIGN KEY (chapter_id) REFERENCES Chapter(id)
+);

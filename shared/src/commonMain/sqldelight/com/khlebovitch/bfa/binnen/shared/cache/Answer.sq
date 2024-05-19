@@ -1,0 +1,17 @@
+CREATE TABLE Answer (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    question_id INTEGER NOT NULL UNIQUE,
+    FOREIGN KEY (question_id) REFERENCES Question(id) ON DELETE CASCADE
+);
+
+CREATE TABLE TextAnswer (
+    answer_id INTEGER NOT NULL UNIQUE,
+    text TEXT NOT NULL,
+    FOREIGN KEY (answer_id) REFERENCES Answer(id) ON DELETE CASCADE
+);
+
+CREATE TABLE ImageAnswer (
+    answer_id INTEGER NOT NULL UNIQUE,
+    image_path TEXT NOT NULL,
+    FOREIGN KEY (answer_id) REFERENCES Answer(id) ON DELETE CASCADE
+);
